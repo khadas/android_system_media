@@ -262,6 +262,7 @@ typedef enum {
     AUDIO_FORMAT_E_AC3               = 0x0A000000UL,
     AUDIO_FORMAT_DTS                 = 0x0B000000UL,
     AUDIO_FORMAT_DTS_HD              = 0x0C000000UL,
+    AUDIO_FORMAT_TRUEHD              = 0x0D000000UL,
     AUDIO_FORMAT_MAIN_MASK           = 0xFF000000UL,
     AUDIO_FORMAT_SUB_MASK            = 0x00FFFFFFUL,
 
@@ -884,7 +885,7 @@ struct audio_gain_config  {
 
 /* Types defined here are used to describe an audio source or sink at internal
  * framework interfaces (audio policy, patch panel) or at the audio HAL.
- * Sink and sources are grouped in a concept of “audio port” representing an
+ * Sink and sources are grouped in a concept of “audio port�?representing an
  * audio end point at the edge of the system managed by the module exposing
  * the interface. */
 
@@ -1374,6 +1375,13 @@ static inline bool audio_is_valid_format(audio_format_t format)
 static inline bool audio_is_linear_pcm(audio_format_t format)
 {
     return ((format & AUDIO_FORMAT_MAIN_MASK) == AUDIO_FORMAT_PCM);
+}
+static inline bool audio_is_raw_data(audio_format_t format)
+{
+    return (((format & AUDIO_FORMAT_MAIN_MASK) == AUDIO_FORMAT_DTS) ||
+		 ((format & AUDIO_FORMAT_MAIN_MASK) == AUDIO_FORMAT_AC3) ||
+		 ((format & AUDIO_FORMAT_MAIN_MASK) == AUDIO_FORMAT_E_AC3)||
+                 ((format & AUDIO_FORMAT_MAIN_MASK) == AUDIO_FORMAT_TRUEHD));
 }
 
 static inline size_t audio_bytes_per_sample(audio_format_t format)
