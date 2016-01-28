@@ -1366,6 +1366,7 @@ static inline bool audio_is_valid_format(audio_format_t format)
     case AUDIO_FORMAT_E_AC3:
     case AUDIO_FORMAT_DTS:
     case AUDIO_FORMAT_DTS_HD:
+    case AUDIO_FORMAT_TRUEHD:
         return true;
     default:
         return false;
