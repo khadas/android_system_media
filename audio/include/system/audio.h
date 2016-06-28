@@ -1422,6 +1422,8 @@ static inline char *audio_device_address_to_parameter(audio_devices_t device, co
         snprintf(param, kSize, "%s=%s", "a2dp_sink_address", address);
     else if (device & AUDIO_DEVICE_OUT_REMOTE_SUBMIX)
         snprintf(param, kSize, "%s=%s", "mix", address);
+    else if (device & AUDIO_DEVICE_OUT_HDMI_ARC)
+        snprintf(param, kSize, "%s=%s", "hdmi_arc_ad", address);
     else
         snprintf(param, kSize, "%s", address);
 
