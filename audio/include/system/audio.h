@@ -262,7 +262,9 @@ typedef enum {
     AUDIO_FORMAT_E_AC3               = 0x0A000000UL,
     AUDIO_FORMAT_DTS                 = 0x0B000000UL,
     AUDIO_FORMAT_DTS_HD              = 0x0C000000UL,
-    AUDIO_FORMAT_TRUEHD              = 0x0D000000UL,
+    // IEC61937 is encoded audio wrapped in 16-bit PCM.
+    AUDIO_FORMAT_IEC61937            = 0x0D000000UL,
+    AUDIO_FORMAT_TRUEHD              = 0x0E000000UL,
     AUDIO_FORMAT_MAIN_MASK           = 0xFF000000UL,
     AUDIO_FORMAT_SUB_MASK            = 0x00FFFFFFUL,
 
@@ -1374,15 +1376,39 @@ static inline bool audio_is_valid_format(audio_format_t format)
     }
 }
 
+/**
+ * Extract the primary format, eg. PCM, AC3, etc.
+ */
+static inline audio_format_t audio_get_main_format(audio_format_t format)
+{
+    return (audio_format_t)(format & AUDIO_FORMAT_MAIN_MASK);
+}
 static inline bool audio_is_linear_pcm(audio_format_t format)
 {
     return ((format & AUDIO_FORMAT_MAIN_MASK) == AUDIO_FORMAT_PCM);
+}
+/**
+ * For this format, is the number of PCM audio frames directly proportional
+ * to the number of data bytes?
+ *
+ * In other words, is the format transported as PCM audio samples,
+ * but not necessarily scalable or mixable.
+ * This returns true for real PCM, but also for AUDIO_FORMAT_IEC61937,
+ * which is transported as 16 bit PCM audio, but where the encoded data
+ * cannot be mixed or scaled.
+ */
+static inline bool audio_has_proportional_frames(audio_format_t format)
+{
+    audio_format_t mainFormat = audio_get_main_format(format);
+    return (mainFormat == AUDIO_FORMAT_PCM
+            || mainFormat == AUDIO_FORMAT_IEC61937);
 }
 static inline bool audio_is_raw_data(audio_format_t format)
 {
     return (((format & AUDIO_FORMAT_MAIN_MASK) == AUDIO_FORMAT_DTS) ||
 		 ((format & AUDIO_FORMAT_MAIN_MASK) == AUDIO_FORMAT_AC3) ||
 		 ((format & AUDIO_FORMAT_MAIN_MASK) == AUDIO_FORMAT_E_AC3)||
+		 ((format & AUDIO_FORMAT_MAIN_MASK) == AUDIO_FORMAT_DTS_HD)||
                  ((format & AUDIO_FORMAT_MAIN_MASK) == AUDIO_FORMAT_TRUEHD));
 }
 
@@ -1399,6 +1425,7 @@ static inline size_t audio_bytes_per_sample(audio_format_t format)
         size = sizeof(uint8_t) * 3;
         break;
     case AUDIO_FORMAT_PCM_16_BIT:
+    case AUDIO_FORMAT_IEC61937:
         size = sizeof(int16_t);
         break;
     case AUDIO_FORMAT_PCM_8_BIT:
