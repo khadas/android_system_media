@@ -741,6 +741,7 @@ enum {
     AUDIO_DEVICE_IN_BUS                   = AUDIO_DEVICE_BIT_IN | 0x100000,
     /* dia remote for dialogue BT input */
     AUDIO_DEVICE_IN_DIA_REMOTE            = AUDIO_DEVICE_BIT_IN | 0x200000,
+    AUDIO_DEVICE_IN_HUITONG               = AUDIO_DEVICE_BIT_IN | 0x400000,
     AUDIO_DEVICE_IN_DEFAULT               = AUDIO_DEVICE_BIT_IN | AUDIO_DEVICE_BIT_DEFAULT,
 
     AUDIO_DEVICE_IN_ALL     = (AUDIO_DEVICE_IN_COMMUNICATION |
@@ -765,6 +766,7 @@ enum {
                                AUDIO_DEVICE_IN_IP |
                                AUDIO_DEVICE_IN_BUS |
                                AUDIO_DEVICE_IN_DIA_REMOTE |
+                               AUDIO_DEVICE_IN_HUITONG |
                                AUDIO_DEVICE_IN_DEFAULT),
     AUDIO_DEVICE_IN_ALL_SCO = AUDIO_DEVICE_IN_BLUETOOTH_SCO_HEADSET,
     AUDIO_DEVICE_IN_ALL_USB  = (AUDIO_DEVICE_IN_USB_ACCESSORY |
