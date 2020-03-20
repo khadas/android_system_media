@@ -3,6 +3,7 @@ subdirs = ["tests"]
 cc_library_shared {
     name: "libcamera_metadata",
     vendor_available: true,
+    recovery_available: true,
     vndk: {
         enabled: true,
     },
