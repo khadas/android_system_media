@@ -50,6 +50,12 @@ typedef enum {
     AUDIO_POLICY_FORCE_ENCODED_SURROUND_NEVER,
     AUDIO_POLICY_FORCE_ENCODED_SURROUND_ALWAYS,
     AUDIO_POLICY_FORCE_ENCODED_SURROUND_MANUAL,
+    /*[Amlogic start]+++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+    /* Change-Id: Ic4905e878f8a1d8e3800cf97aa8f35da4be97d27 */
+    /* add for force spdif/arc audio out */
+    AUDIO_POLICY_FORCE_HDMI_ARC,
+    AUDIO_POLICY_FORCE_SPDIF,
+    /*[Amlogic end]-----------------------------------------------------------*/
 
     AUDIO_POLICY_FORCE_CFG_CNT,
     AUDIO_POLICY_FORCE_CFG_MAX = AUDIO_POLICY_FORCE_CFG_CNT - 1,
