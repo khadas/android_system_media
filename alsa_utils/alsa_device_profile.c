@@ -22,6 +22,7 @@
 #include <inttypes.h>
 #include <stdint.h>
 #include <stdlib.h>
+#include <unistd.h>
 #include <cutils/properties.h>
 
 #include <log/log.h>
@@ -399,6 +400,7 @@ bool profile_read_device_info(alsa_device_profile* profile)
         return false;
     }
 
+    usleep(90000);
     /* let's get some defaults */
     read_alsa_device_config(profile, &profile->default_config);
     ALOGV("default_config chans:%d rate:%d format:%d count:%d size:%d",
