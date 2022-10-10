@@ -32,7 +32,7 @@
 
 #define ARRAY_SIZE(a) (sizeof(a) / sizeof((a)[0]))
 
-#define PERIOD_DURATION_US (5 * 1000)
+#define PERIOD_DURATION_US (10 * 1000)
 
 #define DEFAULT_PERIOD_SIZE 1024
 
@@ -419,7 +419,16 @@ static int read_alsa_device_config(alsa_device_profile * profile, struct pcm_con
         config->rate = 44100;
     }
     config->period_size = profile_calc_min_period_size(profile, config->rate);
-    config->period_count = pcm_params_get_min(alsa_hw_params, PCM_PARAM_PERIODS);
+
+    unsigned min_count   = pcm_params_get_min(alsa_hw_params, PCM_PARAM_PERIODS);
+    unsigned max_count   = pcm_params_get_max(alsa_hw_params, PCM_PARAM_PERIODS);
+    // set period_count = 4 for default
+    config->period_count = property_get_int32("ro.audio.usb.period_count", 4);
+    if (config->period_count < min_count)
+       config->period_count = min_count;
+    else if (config->period_count > max_count)
+       config->period_count = max_count;
+
     config->format = get_pcm_format_for_mask(pcm_params_get_mask(alsa_hw_params, PCM_PARAM_FORMAT));
 #ifdef LOG_PCM_PARAMS
     log_pcm_config(config, "read_alsa_device_config");
