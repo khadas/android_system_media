@@ -1943,6 +1943,8 @@ static inline bool audio_is_valid_audio_source(audio_source_t audioSource)
     case AUDIO_SOURCE_REMOTE_SUBMIX:
     case AUDIO_SOURCE_UNPROCESSED:
     case AUDIO_SOURCE_VOICE_PERFORMANCE:
+    case AUDIO_SOURCE_HDMIIN:
+    case AUDIO_SOURCE_HDMIIN_1:
     case AUDIO_SOURCE_ECHO_REFERENCE:
     case AUDIO_SOURCE_FM_TUNER:
 #ifndef AUDIO_NO_SYSTEM_DECLARATIONS

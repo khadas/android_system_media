@@ -53,6 +53,8 @@
 #define VOICE_COMM_SRC_TAG "voice_communication"      // AUDIO_SOURCE_VOICE_COMMUNICATION
 #define UNPROCESSED_SRC_TAG "unprocessed"             // AUDIO_SOURCE_UNPROCESSED
 #define VOICE_PERFORMANCE_SRC_TAG "voice_performance" // AUDIO_SOURCE_VOICE_PERFORMANCE
+#define HDMIIN_SRC_TAG "hdmiin"                       // AUDIO_SOURCE_HDMIIN
+#define HDMIIN_1_SRC_TAG "hdmiin_1"                   // AUDIO_SOURCE_HDMIIN_1
 
 // audio_stream_type_t
 #define AUDIO_STREAM_DEFAULT_TAG "default"
